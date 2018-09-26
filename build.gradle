@@ -1,0 +1,87 @@
+buildscript {
+    ext {
+        hibernateVersion = '5.2.12.Final'
+    }
+    repositories {
+        jcenter()
+
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.10.RELEASE")
+    }
+}
+
+plugins {
+    id 'java'
+    id 'net.ltgt.apt' version '0.9'
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = file("$buildDir/classes/main/")
+
+    }
+}
+
+jar {
+    baseName = 'gs-rest-service'
+    version = '0.1.0'
+    manifest {
+        attributes(
+                'Main-Class': 'com.tsquared.Application'
+        )
+    }
+
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+group 'com.tsquared'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+test {
+    systemProperty "file.encoding", "utf-8"
+}
+ext {
+    swaggerVersion = "2.7.0"
+    jUnitVersion = "4.12"
+    lombokVersion = "1.16.14"
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-data-rest")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: "${swaggerVersion}"
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: "${swaggerVersion}"
+    compile 'org.postgresql:postgresql'
+    compile group: 'com.h2database', name: 'h2'
+    compile "org.projectlombok:lombok:${lombokVersion}"
+    testCompile "junit:junit:${jUnitVersion}"
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile ('org.springframework.security:spring-security-test')
+}
+
+
+apply plugin: 'java'
+
+bootRun {
+    jvmArgs = ["-Dspring.output.ansi.enabled=ALWAYS"]
+}
+
