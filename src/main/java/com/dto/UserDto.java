@@ -2,6 +2,8 @@ package com.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class UserDto {
     private Long id;
@@ -12,5 +14,5 @@ public class UserDto {
 
     private String password;
 
-    private TaskDtoId taskDtoId;
+    private List<TaskDtoId> tasks;
 }
