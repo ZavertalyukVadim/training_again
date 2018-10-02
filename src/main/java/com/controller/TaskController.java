@@ -1,6 +1,8 @@
 package com.controller;
 
-import com.entity.Task;
+import com.dto.TaskDto;
+import com.mappers.TaskMapper;
+import com.service.AsyncService;
 import com.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,14 +17,21 @@ import java.util.List;
 @RestController
 public class TaskController {
     private final TaskService taskService;
+    private final AsyncService asyncService;
+    private final TaskMapper taskMapper;
 
     @Autowired
-    public TaskController(TaskService taskService) {
+    public TaskController(TaskService taskService,
+                          AsyncService asyncService,
+                          TaskMapper taskMapper) {
         this.taskService = taskService;
+        this.asyncService = asyncService;
+        this.taskMapper = taskMapper;
     }
 
     @GetMapping
-    public ResponseEntity<List<Task>> getAllTasks() {
-        return new ResponseEntity<>(taskService.getAllTasks(),HttpStatus.OK);
+    public ResponseEntity<List<TaskDto>> getAllTasks() throws InterruptedException {
+//        asyncService.printInConsole();
+        return new ResponseEntity<>(taskMapper.toTaskDto(taskService.getAllTasks()), HttpStatus.OK);
     }
 }

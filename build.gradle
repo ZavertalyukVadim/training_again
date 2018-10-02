@@ -10,7 +10,8 @@ buildscript {
         }
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.10.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE")
+        classpath("org.springframework:springloaded:1.2.6.RELEASE")
     }
 }
 
@@ -38,7 +39,7 @@ jar {
     version = '0.1.0'
     manifest {
         attributes(
-                'Main-Class': 'com.tsquared.Application'
+                'Main-Class': 'com.Application'
         )
     }
 
@@ -58,25 +59,54 @@ targetCompatibility = 1.8
 test {
     systemProperty "file.encoding", "utf-8"
 }
+
+dependencyManagement {
+    dependencies {
+        dependency("org.hibernate:hibernate-core:${hibernateVersion}")
+        dependency("org.hibernate:hibernate-entitymanager:${hibernateVersion}")
+    }
+}
+
 ext {
-    swaggerVersion = "2.7.0"
-    jUnitVersion = "4.12"
+    mapstructVersion = "1.2.0.Final"
     lombokVersion = "1.16.14"
+    springLoadedVersion = "1.2.6.RELEASE"
+    jacksonJsogVersion = "1.1.1"
+    hibernateTypesVersion = "1.2.0"
+    swaggerVersion = "2.7.0"
+    elasticSearchVersion = "6.2.3"
+    jacksonDatatypeVersion = "2.9.5"
+    commonsCSVVersion = "1.5"
+    jUnitVersion = "4.12"
+    poiOoxmlVersion = "3.17"
 }
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-data-rest")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail'
+    compile("org.springframework:springloaded:${springLoadedVersion}")
+    compile("com.voodoodyne.jackson.jsog:jackson-jsog:${jacksonJsogVersion}")
+    compile("com.vladmihalcea:hibernate-types-5:${hibernateTypesVersion}")
+    compile("javax.inject:javax.inject:1")
     compile group: 'io.springfox', name: 'springfox-swagger2', version: "${swaggerVersion}"
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: "${swaggerVersion}"
     compile 'org.postgresql:postgresql'
-    compile group: 'com.h2database', name: 'h2'
+    compile "org.elasticsearch.client:elasticsearch-rest-high-level-client:${elasticSearchVersion}"
+    compile group: 'org.elasticsearch', name: 'elasticsearch', version: "${elasticSearchVersion}"
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: "${jacksonDatatypeVersion}"
+    compile "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
     compile "org.projectlombok:lombok:${lombokVersion}"
-    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    compile group: 'org.apache.commons', name: 'commons-csv', version: "${commonsCSVVersion}"
+    compile("org.apache.poi:poi-ooxml:${poiOoxmlVersion}")
+    compile group: 'com.h2database', name: 'h2'
+
     testCompile "junit:junit:${jUnitVersion}"
     testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile ('org.springframework.security:spring-security-test')
+    testCompile('com.jayway.jsonpath:json-path')
+    apt "org.mapstruct:mapstruct-processor:${mapstructVersion}", "org.projectlombok:lombok:${lombokVersion}"
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
 }
 
 
@@ -85,4 +115,5 @@ apply plugin: 'java'
 bootRun {
     jvmArgs = ["-Dspring.output.ansi.enabled=ALWAYS"]
 }
+
 
