@@ -1,5 +1,6 @@
 package com.service;
 
+import com.annotation.TrackTime;
 import com.entity.Customer;
 import com.entity.Task;
 import com.repository.CustomerRepository;
@@ -13,6 +14,7 @@ import java.util.List;
 public class TaskService {
     private final TaskRepository taskRepository;
     private final CustomerRepository customerRepository;
+
     @Autowired
     public TaskService(TaskRepository taskRepository,
                        CustomerRepository customerRepository) {
@@ -20,13 +22,12 @@ public class TaskService {
         this.customerRepository = customerRepository;
     }
 
+    @TrackTime
     public List<Task> getAllTasks() {
         Customer customer = new Customer();
         customer.setFirstName("first name");
         customer.setLastName("second name");
         customerRepository.save(customer);
-        List<Customer> all = customerRepository.findAll();
-        System.out.println("ALL = "+all);
         return taskRepository.findAll();
     }
 }
