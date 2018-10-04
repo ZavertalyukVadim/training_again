@@ -10,6 +10,7 @@ import java.util.List;
 @Mapper(componentModel = "spring", nullValueCheckStrategy = NullValueCheckStrategy.ON_IMPLICIT_CONVERSION)
 public interface TaskMapper {
 
-    List<TaskDto> toTaskDto(List<Task> tasks);
+    List<TaskDto> toTaskListDto(List<Task> tasks);
 
+    TaskDto toTaskDto(Task tasks);
 }
