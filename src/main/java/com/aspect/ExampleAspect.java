@@ -32,7 +32,7 @@ public class ExampleAspect {
         try {
             value = joinPoint.proceed();
         } catch (Throwable e) {
-            e.printStackTrace();
+            log.warn(e.getMessage(), e.getCause());
         }
 
         long timeTaken = System.currentTimeMillis() - startTime;
