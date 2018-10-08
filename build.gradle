@@ -100,6 +100,7 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-csv', version: "${commonsCSVVersion}"
     compile("org.apache.poi:poi-ooxml:${poiOoxmlVersion}")
     compile group: 'com.h2database', name: 'h2'
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
 
     testCompile "junit:junit:${jUnitVersion}"
     testCompile('org.springframework.boot:spring-boot-starter-test')
