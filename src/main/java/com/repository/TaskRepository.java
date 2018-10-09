@@ -33,7 +33,8 @@ public class TaskRepository {
         Session session = sessionFactory.openSession();
         try {
             log.debug("try to get order with id=" + id);
-            return session.byId(Task.class).load(id);
+           return session.createQuery( "select t FROM Task t where t.id = :task_id", Task.class)
+                    .setParameter("task_id", id).getSingleResult();
         } catch (Exception e) {
             log.error(e.getMessage());
             return null;

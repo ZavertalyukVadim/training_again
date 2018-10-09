@@ -108,6 +108,7 @@ dependencies {
     apt "org.mapstruct:mapstruct-processor:${mapstructVersion}", "org.projectlombok:lombok:${lombokVersion}"
     compile("org.springframework.boot:spring-boot-starter-data-mongodb")
     compile("org.springframework.boot:spring-boot-starter-aop")
+    compile 'org.mariadb.jdbc:mariadb-java-client'
 }
 
 
