@@ -36,10 +36,10 @@ public class TaskServiceImpl implements TaskService {
         customer.setFirstName("first name");
         customer.setLastName("second name");
         customerRepository.save(customer);
-        writeService.writeToFile();
-        writeService.readFromFile();
-        writeService.writeToResource("shakespeare.txt");
-        writeService.readFromResource("shakespeare.txt");
+//        writeService.writeToFile();
+//        writeService.readFromFile();
+//        writeService.writeToResource("shakespeare.txt");
+//        writeService.readFromResource("shakespeare.txt");
         return taskRepository.findAll();
     }
 
