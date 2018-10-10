@@ -49,8 +49,8 @@ public class WriteServiceImpl implements WriteService {
 
     @Override
     public void writeToResource(String path) {
-        URL resource = Thread.currentThread()
-                .getContextClassLoader().getResource(path);
+        URL resource = this.getClass()
+                .getClassLoader().getResource(path);
         try {
             FileUtils.writeLines(new File(Objects.requireNonNull(resource).getFile()),
                     Collections.singletonList(customString));
@@ -61,8 +61,8 @@ public class WriteServiceImpl implements WriteService {
 
     @Override
     public void readFromResource(String path) {
-        try (InputStream stream = Thread.currentThread()
-                .getContextClassLoader()
+        try (InputStream stream = this.getClass()
+                .getClassLoader()
                 .getResourceAsStream(path)
         ) {
             String stringFromFile = IOUtils.toString(stream, Charset.forName("UTF-8"));
