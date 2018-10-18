@@ -1,13 +1,15 @@
 package com.aspect;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.java.Log;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Arrays;
+
 @Aspect
 @Configuration
-@Log4j2
+@Log
 public class ExampleAspect {
 
     @Pointcut("@annotation(com.annotation.TrackTime)")
@@ -32,12 +34,11 @@ public class ExampleAspect {
         try {
             value = joinPoint.proceed();
         } catch (Throwable e) {
-            log.warn(e.getMessage(), e.getCause());
+            log.warning(Arrays.toString(e.getStackTrace()));
         }
 
         long timeTaken = System.currentTimeMillis() - startTime;
-        log.warn("Time Taken by {} is {}", joinPoint, timeTaken);
-        System.out.println("Time Taken by " + joinPoint + " is " + timeTaken);
+        log.warning("Time Taken by " + joinPoint + " is " + timeTaken);
         System.out.println("Aspect3 Around");
         return value;
     }

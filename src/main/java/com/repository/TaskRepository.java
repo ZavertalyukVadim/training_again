@@ -1,7 +1,7 @@
 package com.repository;
 
 import com.entity.Task;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.java.Log;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 @Repository
-@Log4j2
+@Log
 @Transactional
 public class TaskRepository {
     private final SessionFactory sessionFactory;
@@ -32,11 +32,11 @@ public class TaskRepository {
     public Task findOne(Long id) {
         Session session = sessionFactory.openSession();
         try {
-            log.debug("try to get order with id=" + id);
+            log.info("try to get order with id=" + id);
            return session.createQuery( "select t FROM Task t where t.id = :task_id", Task.class)
                     .setParameter("task_id", id).getSingleResult();
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.warning(e.getMessage());
             return null;
         }
     }

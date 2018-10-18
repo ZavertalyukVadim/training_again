@@ -7,35 +7,35 @@ import com.repository.CustomerRepository;
 import com.repository.TaskRepository;
 import com.service.TaskService;
 import com.service.WriteService;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@Log4j2
+@Log
 public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
-    private final CustomerRepository customerRepository;
+//    private final CustomerRepository customerRepository;
     private final WriteService writeService;
 
     @Autowired
     public TaskServiceImpl(TaskRepository taskRepository,
-                           CustomerRepository customerRepository,
+//                           CustomerRepository customerRepository,
                            WriteService writeService) {
         this.taskRepository = taskRepository;
-        this.customerRepository = customerRepository;
+//        this.customerRepository = customerRepository;
         this.writeService = writeService;
     }
 
     @TrackTime
     @Override
     public List<Task> getAllTasks() {
-        Customer customer = new Customer();
-        customer.setFirstName("first name");
-        customer.setLastName("second name");
-        customerRepository.save(customer);
+//        Customer customer = new Customer();
+//        customer.setFirstName("first name");
+//        customer.setLastName("second name");
+//        customerRepository.save(customer);
 //        writeService.writeToFile();
 //        writeService.readFromFile();
 //        writeService.writeToResource("shakespeare.txt");

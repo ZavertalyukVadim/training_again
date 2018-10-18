@@ -1,7 +1,7 @@
 package com.service.impl;
 
 import com.service.WriteService;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.java.Log;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Component;
@@ -12,11 +12,12 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
 
 @Component
-@Log4j2
+@Log
 public class WriteServiceImpl implements WriteService {
     private String DELIMITER = IOUtils.LINE_SEPARATOR;
     private String customString = "To be, or not to be. That is the question. ";
@@ -27,7 +28,7 @@ public class WriteServiceImpl implements WriteService {
         try (BufferedWriter writer = Files.newBufferedWriter(path, Charset.forName("UTF-8"))) {
             writer.write(customString + DELIMITER);
         } catch (IOException ex) {
-            log.error(ex.getStackTrace());
+            log.warning(Arrays.toString(ex.getStackTrace()));
         }
 
     }
@@ -43,7 +44,7 @@ public class WriteServiceImpl implements WriteService {
             }
             Files.delete(path);
         } catch (IOException ex) {
-            log.error(ex.getStackTrace());
+            log.warning(Arrays.toString(ex.getStackTrace()));
         }
     }
 
@@ -55,7 +56,7 @@ public class WriteServiceImpl implements WriteService {
             FileUtils.writeLines(new File(Objects.requireNonNull(resource).getFile()),
                     Collections.singletonList(customString));
         } catch (IOException e) {
-            log.error(e.getStackTrace());
+            log.warning(Arrays.toString(e.getStackTrace()));
         }
     }
 
