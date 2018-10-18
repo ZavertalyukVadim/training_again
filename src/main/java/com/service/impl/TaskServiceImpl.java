@@ -1,9 +1,7 @@
 package com.service.impl;
 
 import com.annotation.TrackTime;
-import com.entity.Customer;
 import com.entity.Task;
-import com.repository.CustomerRepository;
 import com.repository.TaskRepository;
 import com.service.TaskService;
 import com.service.WriteService;
